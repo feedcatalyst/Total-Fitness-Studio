@@ -2,169 +2,213 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Total Fitness Studio — Chromepet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Total Fitness Studio — Chromepet | Elite Training Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,200;0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
 <style>
-/* ======== RESET & ROOT ======== */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --black: #080808;
-  --deep: #0e0e0e;
-  --surface: #141414;
-  --card: #1a1a1a;
-  --border: rgba(255,255,255,0.07);
-  --border-hover: rgba(255,255,255,0.15);
-  --fire: #FF4500;
-  --fire-dim: #c43400;
-  --fire-glow: rgba(255,69,0,0.25);
-  --gold: #D4A843;
-  --text: #F5F2ED;
-  --muted: rgba(245,242,237,0.45);
-  --faint: rgba(245,242,237,0.18);
-  --r: 6px;
-  --transition: cubic-bezier(0.16, 1, 0.3, 1);
+/* ===== RESET & MODERN PROPS ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+
+:root {
+  --black: #050505;
+  --deep: #0b0b0b;
+  --surface: #111111;
+  --card-bg: #151515;
+  --border-light: rgba(255, 255, 255, 0.06);
+  --border-glow: rgba(255, 69, 0, 0.3);
+  --fire: #FF4500;
+  --fire-dark: #c72a00;
+  --gold: #E0B354;
+  --text-primary: #F5F2EF;
+  --text-muted: rgba(245, 242, 239, 0.55);
+  --text-faint: rgba(245, 242, 239, 0.25);
+  --transition-smooth: cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 body {
   background: var(--black);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
   font-weight: 300;
+  line-height: 1.5;
   overflow-x: hidden;
   cursor: none;
 }
 
-/* ======== CUSTOM CURSOR ======== */
-#cursor {
+/* ===== CUSTOM CURSOR (PREMIUM) ===== */
+#cursor-dot {
   position: fixed;
-  width: 10px; height: 10px;
+  width: 8px;
+  height: 8px;
   background: var(--fire);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: transform 0.1s, width 0.3s var(--transition), height 0.3s var(--transition), background 0.3s;
-  mix-blend-mode: normal;
+  transition: transform 0.05s, width 0.2s, height 0.2s, background 0.2s;
+  box-shadow: 0 0 8px var(--fire);
 }
+
 #cursor-ring {
   position: fixed;
-  width: 40px; height: 40px;
-  border: 1px solid rgba(255,69,0,0.5);
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid rgba(255, 69, 0, 0.5);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: transform 0.08s linear, width 0.4s var(--transition), height 0.4s var(--transition), opacity 0.3s;
+  transition: transform 0.08s, width 0.3s, height 0.3s, border-color 0.2s;
+  backdrop-filter: blur(2px);
 }
-body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 6px; height: 6px; }
-body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 60px; height: 60px; border-color: var(--fire); }
 
-/* ======== SCROLL PROGRESS ======== */
-#progress {
+body:has(a:hover) #cursor-dot,
+body:has(button:hover) #cursor-dot {
+  width: 4px;
+  height: 4px;
+  background: white;
+}
+
+body:has(a:hover) #cursor-ring,
+body:has(button:hover) #cursor-ring {
+  width: 70px;
+  height: 70px;
+  border-color: var(--fire);
+  background: rgba(255, 69, 0, 0.08);
+}
+
+/* ===== SCROLL PROGRESS ===== */
+#scroll-progress {
   position: fixed;
-  top: 0; left: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--fire), var(--gold));
-  z-index: 1000;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--fire), var(--gold), var(--fire));
+  z-index: 10000;
   width: 0%;
-  transition: width 0.1s linear;
+  transition: width 0.08s linear;
+  box-shadow: 0 0 6px var(--fire);
 }
 
-/* ======== NAV ======== */
+/* ===== NAVIGATION ===== */
 nav {
   position: fixed;
-  inset: 0 0 auto 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 500;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem 5vw;
-  transition: background 0.5s, padding 0.5s;
+  transition: all 0.5s var(--transition-smooth);
+  backdrop-filter: blur(0px);
 }
+
 nav.scrolled {
-  background: rgba(8,8,8,0.94);
-  backdrop-filter: blur(20px) saturate(1.5);
-  padding: 1rem 5vw;
-  border-bottom: 1px solid var(--border);
+  background: rgba(5, 5, 5, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  padding: 0.9rem 5vw;
+  border-bottom: 1px solid var(--border-light);
 }
-.nav-logo {
+
+.logo {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   letter-spacing: 0.08em;
-  color: var(--text);
   text-decoration: none;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
-.nav-logo .dot {
-  width: 8px; height: 8px;
+
+.logo-dot {
+  width: 9px;
+  height: 9px;
   background: var(--fire);
   border-radius: 50%;
-  animation: pulse-dot 2s ease-in-out infinite;
+  animation: pulse-dot 2s infinite ease-in-out;
 }
+
 @keyframes pulse-dot {
-  0%,100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.6); opacity: 0.5; }
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.6; }
 }
-.nav-center {
+
+.nav-links {
   display: flex;
-  gap: 2.5rem;
+  gap: 2.8rem;
   list-style: none;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
-.nav-center a {
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
+
+.nav-links a {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--text-muted);
   text-decoration: none;
-  position: relative;
   transition: color 0.3s;
+  position: relative;
   padding-bottom: 4px;
 }
-.nav-center a::after {
+
+.nav-links a::after {
   content: '';
   position: absolute;
-  bottom: 0; left: 0;
-  width: 0; height: 1px;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
   background: var(--fire);
-  transition: width 0.4s var(--transition);
+  transition: width 0.4s var(--transition-smooth);
 }
-.nav-center a:hover { color: var(--text); }
-.nav-center a:hover::after { width: 100%; }
-.nav-join {
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.cta-nav {
   background: transparent;
   border: 1px solid var(--fire);
   color: var(--fire) !important;
-  padding: 0.45rem 1.25rem;
-  border-radius: 2px;
-  font-size: 0.75rem !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: background 0.3s, color 0.3s !important;
+  padding: 0.5rem 1.5rem;
+  border-radius: 40px;
+  font-size: 0.7rem !important;
+  font-weight: 600;
+  transition: all 0.3s;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
-.nav-join::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--fire);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.35s var(--transition);
-  z-index: -1;
-}
-.nav-join:hover { color: #fff !important; }
-.nav-join:hover::before { transform: scaleX(1); }
 
-/* ======== HERO ======== */
+.cta-nav:hover {
+  background: var(--fire);
+  color: white !important;
+  border-color: var(--fire);
+}
+
+/* ===== HERO SECTION (ENHANCED) ===== */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -172,1884 +216,567 @@ nav.scrolled {
   position: relative;
   overflow: hidden;
 }
-.hero-bg {
+
+#hero-canvas {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
 }
-#particles-canvas {
+
+.hero-gradient {
   position: absolute;
   inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 30% 50%, rgba(0,0,0,0) 30%, rgba(5,5,5,0.85) 90%);
   z-index: 1;
 }
-.hero-grid-lines {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background-image:
-    linear-gradient(rgba(255,69,0,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,69,0,0.04) 1px, transparent 1px);
-  background-size: 80px 80px;
-  animation: grid-drift 30s linear infinite;
-}
-@keyframes grid-drift {
-  from { background-position: 0 0; }
-  to { background-position: 80px 80px; }
-}
-.hero-vignette {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(8,8,8,0.7) 100%);
-}
+
 .hero-content {
   position: relative;
-  z-index: 10;
+  z-index: 12;
   padding: 0 5vw;
   padding-top: 8rem;
-  max-width: 900px;
+  max-width: 950px;
 }
-.hero-eyebrow {
+
+.hero-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.72rem;
+  gap: 0.8rem;
+  font-size: 0.7rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--fire);
   margin-bottom: 2rem;
   opacity: 0;
   transform: translateY(20px);
-  animation: reveal 0.8s var(--transition) 0.3s forwards;
+  animation: fadeUp 0.8s var(--transition-smooth) 0.3s forwards;
 }
-.hero-eyebrow .line { width: 40px; height: 1px; background: var(--fire); }
-@keyframes reveal {
+
+.hero-badge span {
+  width: 45px;
+  height: 1px;
+  background: var(--fire);
+}
+
+@keyframes fadeUp {
   to { opacity: 1; transform: translateY(0); }
 }
+
 .hero-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(5rem, 12vw, 13rem);
-  line-height: 0.88;
+  font-size: clamp(4.5rem, 12vw, 12rem);
+  line-height: 0.85;
   letter-spacing: 0.01em;
   opacity: 0;
-  transform: translateY(40px);
-  animation: reveal 1s var(--transition) 0.5s forwards;
+  transform: translateY(50px);
+  animation: fadeUp 1s var(--transition-smooth) 0.5s forwards;
 }
-.hero-title .fire { color: var(--fire); }
+
+.hero-title .flame {
+  color: var(--fire);
+  text-shadow: 0 0 15px rgba(255,69,0,0.5);
+}
+
 .hero-title .stroke {
-  -webkit-text-stroke: 1.5px rgba(245,242,237,0.35);
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.25);
   color: transparent;
 }
-.hero-tagline {
-  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-  color: var(--muted);
-  line-height: 1.8;
-  max-width: 440px;
+
+.hero-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 480px;
   margin-top: 2rem;
+  line-height: 1.7;
   opacity: 0;
-  transform: translateY(20px);
-  animation: reveal 0.8s var(--transition) 0.8s forwards;
+  animation: fadeUp 0.8s 0.8s forwards;
 }
-.hero-actions {
+
+.hero-buttons {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   margin-top: 3rem;
   opacity: 0;
-  transform: translateY(20px);
-  animation: reveal 0.8s var(--transition) 1s forwards;
+  animation: fadeUp 0.8s 1s forwards;
 }
-.hero-stats-row {
+
+.stats-row {
   display: flex;
   gap: 4rem;
   margin-top: 5rem;
-  padding-top: 3rem;
-  border-top: 1px solid var(--border);
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border-light);
   opacity: 0;
-  animation: reveal 0.8s var(--transition) 1.2s forwards;
-}
-.hero-stat-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 3rem;
-  line-height: 1;
-  color: var(--fire);
-}
-.hero-stat-label {
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 0.3rem;
-}
-.hero-scroll-hint {
-  position: absolute;
-  bottom: 3rem;
-  right: 5vw;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  opacity: 0;
-  animation: reveal 1s var(--transition) 1.5s forwards;
-}
-.scroll-line {
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, var(--fire), transparent);
-  animation: scroll-bounce 2s ease-in-out infinite;
-}
-@keyframes scroll-bounce {
-  0%,100% { transform: scaleY(1) translateY(0); opacity: 1; }
-  50% { transform: scaleY(0.6) translateY(10px); opacity: 0.4; }
+  animation: fadeUp 0.8s 1.2s forwards;
 }
 
-/* ======== BUTTONS ======== */
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.2rem;
+  color: var(--fire);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+
+/* ===== BUTTONS ===== */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.9rem 2.2rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
+  gap: 0.8rem;
+  padding: 0.9rem 2.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
-  border-radius: 3px;
+  border-radius: 50px;
+  transition: all 0.4s var(--transition-smooth);
   cursor: none;
-  transition: all 0.4s var(--transition);
+  border: none;
   position: relative;
   overflow: hidden;
-  border: none;
 }
-.btn-fire {
+
+.btn-primary {
   background: var(--fire);
   color: #fff;
+  box-shadow: 0 4px 14px rgba(255, 69, 0, 0.25);
 }
-.btn-fire::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--fire-dim);
-  transform: translateX(-101%);
-  transition: transform 0.4s var(--transition);
+
+.btn-primary:hover {
+  background: var(--fire-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(255, 69, 0, 0.4);
 }
-.btn-fire:hover::before { transform: translateX(0); }
-.btn-fire span { position: relative; z-index: 1; }
+
 .btn-outline {
   background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border-hover);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-primary);
 }
+
 .btn-outline:hover {
   border-color: var(--fire);
   color: var(--fire);
+  transform: translateY(-2px);
 }
-.btn-arrow {
-  width: 28px; height: 28px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.1);
-  border-radius: 50%;
-  font-size: 0.8rem;
-  transition: transform 0.4s var(--transition), background 0.3s;
-}
-.btn-fire:hover .btn-arrow { transform: translateX(4px); background: rgba(255,255,255,0.2); }
 
-/* ======== MARQUEE ======== */
-.marquee-wrap {
-  overflow: hidden;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 1.1rem 0;
-  background: var(--deep);
+/* ===== SECTION GLOBAL ===== */
+.section {
+  padding: 7rem 5vw;
+  position: relative;
 }
-.marquee-track {
-  display: flex;
-  white-space: nowrap;
-  animation: marquee-scroll 25s linear infinite;
-  width: max-content;
-}
-.marquee-track:hover { animation-play-state: paused; }
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.marquee-item {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  padding: 0 2.5rem;
-  transition: color 0.3s;
-}
-.marquee-item:hover { color: var(--fire); }
-.marquee-sep { color: var(--fire); opacity: 0.4; }
 
-/* ======== SECTION BASE ======== */
-.section { padding: 8rem 5vw; position: relative; }
-.sec-label {
+.section-label {
   font-size: 0.7rem;
   letter-spacing: 0.35em;
-  text-transform: uppercase;
   color: var(--fire);
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
-.sec-label::before { content: ''; width: 28px; height: 1px; background: var(--fire); }
-.sec-title {
+
+.section-label::before {
+  content: '';
+  width: 30px;
+  height: 1.5px;
+  background: var(--fire);
+}
+
+.section-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3rem, 5vw, 5.5rem);
-  line-height: 0.9;
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  line-height: 1;
   letter-spacing: 0.02em;
 }
-.sec-title .accent { color: var(--fire); }
 
-/* ======== REVEAL ANIMATIONS ======== */
-.reveal {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.9s var(--transition), transform 0.9s var(--transition);
+.accent {
+  color: var(--fire);
 }
-.reveal.up { opacity: 1; transform: translateY(0); }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: opacity 0.9s var(--transition), transform 0.9s var(--transition);
-}
-.reveal-left.up { opacity: 1; transform: translateX(0); }
 
-/* ======== SERVICES ======== */
-.services-section { background: var(--black); }
-.services-intro {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: end;
-  margin-bottom: 5rem;
-}
-.services-intro p {
-  font-size: 1rem;
-  color: var(--muted);
-  line-height: 1.9;
-  align-self: end;
-}
+/* ===== GRID & CARDS (Enhanced) ===== */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  background: var(--border-light);
+  border-radius: var(--radius-md);
   overflow: hidden;
+  margin-top: 4rem;
 }
+
 .service-card {
   background: var(--surface);
-  padding: 3rem 2.5rem;
+  padding: 3rem 2rem;
+  transition: all 0.5s var(--transition-smooth);
   position: relative;
-  overflow: hidden;
-  transition: background 0.5s var(--transition);
-  cursor: none;
-}
-.service-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,69,0,0.08), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-.service-card:hover::before { opacity: 1; }
-.service-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 0; height: 2px;
-  background: linear-gradient(90deg, var(--fire), var(--gold));
-  transition: width 0.6s var(--transition);
-}
-.service-card:hover::after { width: 100%; }
-.service-card:hover { background: var(--card); }
-.svc-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 5rem;
-  line-height: 1;
-  color: rgba(255,69,0,0.08);
-  position: absolute;
-  top: 1rem; right: 1.5rem;
-  transition: color 0.4s;
-}
-.service-card:hover .svc-num { color: rgba(255,69,0,0.15); }
-.svc-icon {
-  font-size: 2.2rem;
-  margin-bottom: 1.75rem;
-  display: block;
-  transform-origin: center;
-  transition: transform 0.5s var(--transition);
-}
-.service-card:hover .svc-icon { transform: scale(1.15) rotate(-5deg); }
-.svc-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.6rem;
-  letter-spacing: 0.04em;
-  margin-bottom: 1rem;
-  transition: color 0.3s;
-}
-.service-card:hover .svc-name { color: var(--fire); }
-.svc-desc {
-  font-size: 0.875rem;
-  color: var(--muted);
-  line-height: 1.8;
-}
-.svc-tag {
-  display: inline-block;
-  margin-top: 1.5rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--fire);
-  border: 1px solid rgba(255,69,0,0.3);
-  padding: 0.25rem 0.6rem;
-  border-radius: 2px;
 }
 
-/* ======== ABOUT / PHILOSOPHY ======== */
-.about-section { background: var(--deep); overflow: hidden; }
-.about-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8rem;
-  align-items: center;
+.service-card:hover {
+  background: #161616;
+  transform: translateY(-5px);
 }
-.about-visual {
-  position: relative;
-  height: 600px;
-}
-.about-big-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22rem;
-  line-height: 1;
-  color: rgba(255,69,0,0.05);
-  position: absolute;
-  top: -3rem;
-  left: -2rem;
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-}
-.about-card-main {
-  position: absolute;
-  top: 4rem; left: 2rem;
-  right: 0;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 2.5rem;
-  transition: transform 0.6s var(--transition), box-shadow 0.6s;
-}
-.about-card-main:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,69,0,0.08);
-}
-.about-card-float {
-  position: absolute;
-  bottom: 3rem; left: 0;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  transition: transform 0.6s var(--transition);
-}
-.about-card-float:hover { transform: translateX(8px); }
-.afc-icon {
-  width: 48px; height: 48px;
-  background: rgba(255,69,0,0.12);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  flex-shrink: 0;
-}
-.afc-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-.afc-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--text); margin-top: 0.1rem; }
-.about-progress {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.prog-row { display: flex; align-items: center; gap: 1rem; }
-.prog-label { font-size: 0.75rem; color: var(--muted); width: 120px; flex-shrink: 0; }
-.prog-bar-wrap {
-  flex: 1;
-  height: 4px;
-  background: rgba(255,255,255,0.07);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.prog-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--fire), var(--gold));
-  border-radius: 2px;
-  width: 0;
-  transition: width 1.5s var(--transition);
-}
-.prog-val { font-size: 0.75rem; color: var(--fire); width: 32px; text-align: right; flex-shrink: 0; }
-.about-text h2 { margin-bottom: 2rem; }
-.about-text p {
-  font-size: 1rem;
-  color: var(--muted);
-  line-height: 1.9;
+
+.service-icon {
+  font-size: 2.5rem;
   margin-bottom: 1.5rem;
 }
-.about-text p strong { color: var(--text); font-weight: 500; }
 
-/* ======== PRICING ======== */
-.pricing-section { background: var(--black); }
-.pricing-toggle {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 3rem;
-  margin-bottom: 4rem;
+.service-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
 }
-.toggle-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.08em; }
-.toggle-switch {
-  width: 50px; height: 26px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  position: relative;
-  cursor: none;
-  transition: background 0.3s;
+
+.service-desc {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
 }
-.toggle-switch.on { background: var(--fire); border-color: var(--fire); }
-.toggle-knob {
-  position: absolute;
-  top: 3px; left: 3px;
-  width: 18px; height: 18px;
-  background: #fff;
-  border-radius: 50%;
-  transition: transform 0.35s var(--transition);
-}
-.toggle-switch.on .toggle-knob { transform: translateX(24px); }
-.save-badge {
-  background: rgba(255,69,0,0.15);
-  color: var(--fire);
-  border: 1px solid rgba(255,69,0,0.3);
-  padding: 0.2rem 0.6rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border-radius: 2px;
-}
+
+/* ===== PRICING DYNAMIC ===== */
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: 2rem;
+  margin-top: 4rem;
 }
-.price-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 2.5rem 2rem;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.5s var(--transition), box-shadow 0.5s, border-color 0.4s;
-}
-.price-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--fire), transparent);
-  transform: scaleX(0);
-  transition: transform 0.5s var(--transition);
-}
-.price-card:hover { transform: translateY(-10px); box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 50px rgba(255,69,0,0.06); border-color: rgba(255,69,0,0.25); }
-.price-card:hover::before { transform: scaleX(1); }
-.price-card.featured {
-  background: var(--card);
-  border-color: rgba(255,69,0,0.4);
-  transform: translateY(-8px);
-}
-.price-card.featured::before { transform: scaleX(1); }
-.featured-pip {
-  position: absolute;
-  top: 1.25rem; right: 1.25rem;
-  background: var(--fire);
-  color: #fff;
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.65rem;
-  border-radius: 2px;
-}
-.p-plan {
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 2rem;
-}
-.p-amount {
-  display: flex;
-  align-items: baseline;
-  gap: 0.2rem;
-  margin-bottom: 0.4rem;
-}
-.p-sym { font-size: 1.5rem; color: var(--fire); font-weight: 200; margin-top: 0.6rem; }
-.p-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 4.5rem;
-  line-height: 1;
-  letter-spacing: 0.02em;
-}
-.p-period { font-size: 0.78rem; color: var(--muted); }
-.p-divider { height: 1px; background: var(--border); margin: 2rem 0; }
-.p-features { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 2rem; }
-.p-features li {
-  font-size: 0.875rem;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  transition: color 0.3s;
-}
-.price-card:hover .p-features li { color: rgba(245,242,237,0.65); }
-.p-features li::before { content: ''; width: 14px; height: 14px; border-radius: 50%; background: rgba(255,69,0,0.15); border: 1px solid rgba(255,69,0,0.4); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.p-features li.yes::before { background: var(--fire); border-color: var(--fire); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M1 4l2 2 4-4' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; }
-.p-features li.no { opacity: 0.35; text-decoration: line-through; }
-.p-features li.no::before { background: transparent; border-color: rgba(255,255,255,0.2); }
 
-/* ======== TRAINERS ======== */
-.trainers-section { background: var(--deep); }
+.price-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  transition: all 0.4s;
+}
+
+.price-card.featured {
+  border-color: var(--fire);
+  transform: scale(1.02);
+  background: #171717;
+}
+
+.price-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 30px 40px -20px rgba(0,0,0,0.8);
+}
+
+/* ===== TRAINERS ===== */
 .trainers-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
-  margin-top: 5rem;
+  margin-top: 4rem;
 }
+
 .trainer-card {
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--border);
   background: var(--surface);
-  transition: transform 0.5s var(--transition), box-shadow 0.5s;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: all 0.4s;
   cursor: none;
+  border: 1px solid var(--border-light);
 }
+
 .trainer-card:hover {
   transform: translateY(-12px);
-  box-shadow: 0 40px 70px rgba(0,0,0,0.6), 0 0 40px rgba(255,69,0,0.08);
+  border-color: var(--border-glow);
 }
-.trainer-visual {
-  aspect-ratio: 3/4;
-  position: relative;
-  overflow: hidden;
-  background: var(--card);
+
+.trainer-media {
+  aspect-ratio: 1/1;
+  background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
+
 .trainer-initials {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 6rem;
-  color: rgba(255,69,0,0.12);
-  transition: color 0.4s, transform 0.4s var(--transition);
-  user-select: none;
+  font-size: 5rem;
+  color: rgba(255, 69, 0, 0.12);
+  transition: all 0.3s;
 }
-.trainer-card:hover .trainer-initials { color: rgba(255,69,0,0.2); transform: scale(1.1); }
-.trainer-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 60%);
-  transform: translateY(60%);
-  transition: transform 0.5s var(--transition);
-}
-.trainer-card:hover .trainer-overlay { transform: translateY(0); }
-.trainer-spec {
-  position: absolute;
-  top: 1rem; left: 1rem;
-  background: var(--fire);
-  color: #fff;
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.6rem;
-  border-radius: 2px;
-  z-index: 2;
-}
-.trainer-socials {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 0.5rem;
-  opacity: 0;
-  transition: opacity 0.4s 0.1s;
-  z-index: 2;
-  white-space: nowrap;
-}
-.trainer-card:hover .trainer-socials { opacity: 1; }
-.t-social {
-  width: 32px; height: 32px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  color: var(--text);
-  text-decoration: none;
-  transition: background 0.3s, transform 0.3s;
-}
-.t-social:hover { background: var(--fire); transform: scale(1.15); }
-.trainer-info {
-  padding: 1.5rem;
-}
-.trainer-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem;
-  letter-spacing: 0.04em;
-  transition: color 0.3s;
-}
-.trainer-card:hover .trainer-name { color: var(--fire); }
-.trainer-role {
-  font-size: 0.72rem;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-top: 0.25rem;
-}
-.trainer-exp {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 0.75rem;
-  font-size: 0.75rem;
-  color: var(--fire);
-}
-.exp-dot { width: 5px; height: 5px; background: var(--fire); border-radius: 50%; }
 
-/* ======== SCHEDULE ======== */
-.schedule-section { background: var(--black); }
-.schedule-layout {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 3rem;
-  margin-top: 5rem;
+.trainer-card:hover .trainer-initials {
+  color: rgba(255, 69, 0, 0.25);
+  transform: scale(1.05);
 }
-.day-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  position: sticky;
-  top: 100px;
-  align-self: start;
-}
-.day-btn {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  padding: 0.75rem 1.25rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border-radius: 4px;
-  cursor: none;
-  text-align: left;
-  transition: all 0.35s var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.day-btn .day-sub { font-size: 0.65rem; color: var(--faint); }
-.day-btn.active, .day-btn:hover {
-  background: var(--surface);
-  border-color: var(--fire);
-  color: var(--text);
-}
-.day-btn.active { background: rgba(255,69,0,0.08); }
-.class-rows { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; }
-.class-row {
-  background: var(--surface);
-  display: grid;
-  grid-template-columns: 110px 1fr 80px 100px;
-  align-items: center;
-  padding: 1.5rem 2rem;
-  gap: 1.5rem;
-  transition: background 0.3s, padding 0.3s;
-  cursor: none;
-  position: relative;
-}
-.class-row::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 0;
-  background: var(--fire);
-  transition: width 0.35s var(--transition);
-  border-radius: 0 2px 2px 0;
-}
-.class-row:hover { background: var(--card); padding-left: 2.5rem; }
-.class-row:hover::before { width: 3px; }
-.c-time {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3rem;
-  letter-spacing: 0.04em;
-  color: var(--text);
-  line-height: 1.1;
-}
-.c-dur { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; margin-top: 0.2rem; }
-.c-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 0.04em; transition: color 0.3s; }
-.class-row:hover .c-name { color: var(--fire); }
-.c-trainer { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
-.c-spots { font-size: 0.75rem; color: var(--muted); text-align: right; }
-.c-spots strong { color: var(--text); display: block; font-size: 0.9rem; }
-.c-badge {
-  padding: 0.3rem 0.7rem;
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border-radius: 2px;
-  text-align: center;
-}
-.open { background: rgba(50,200,100,0.12); color: #32c864; border: 1px solid rgba(50,200,100,0.3); }
-.filling { background: rgba(255,69,0,0.12); color: var(--fire); border: 1px solid rgba(255,69,0,0.3); }
-.full { background: rgba(255,80,80,0.1); color: #ff6060; border: 1px solid rgba(255,80,80,0.2); }
 
-/* ======== TESTIMONIALS ======== */
-.testi-section { background: var(--deep); }
-.testi-grid {
+/* ===== TESTIMONIALS ===== */
+.testimonial-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 5rem;
+  gap: 2rem;
 }
-.testi-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 2.5rem;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.5s var(--transition), box-shadow 0.5s, border-color 0.4s;
-}
-.testi-card::before {
-  content: '"';
-  position: absolute;
-  top: -0.5rem; right: 1.5rem;
-  font-family: Georgia, serif;
-  font-size: 8rem;
-  line-height: 1;
-  color: rgba(255,69,0,0.06);
-  pointer-events: none;
-  user-select: none;
-  transition: color 0.4s;
-}
-.testi-card:hover::before { color: rgba(255,69,0,0.1); }
-.testi-card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,0.5); border-color: rgba(255,69,0,0.2); }
-.t-stars { display: flex; gap: 3px; margin-bottom: 1.5rem; }
-.t-star { width: 14px; height: 14px; background: var(--fire); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
-.t-text { font-size: 0.925rem; line-height: 1.85; color: rgba(245,242,237,0.65); margin-bottom: 2rem; }
-.t-author { display: flex; align-items: center; gap: 0.85rem; }
-.t-avatar {
-  width: 44px; height: 44px;
-  background: rgba(255,69,0,0.12);
-  border: 1px solid rgba(255,69,0,0.25);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1rem;
-  color: var(--fire);
-  flex-shrink: 0;
-}
-.t-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.05em; }
-.t-meta { font-size: 0.7rem; color: var(--muted); margin-top: 0.15rem; }
 
-/* ======== GALLERY ======== */
-.gallery-section { background: var(--black); padding: 8rem 0; }
-.gallery-header { padding: 0 5vw; margin-bottom: 4rem; }
-.gallery-masonry {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 200px 200px;
-  gap: 4px;
-  padding: 0 5vw;
+.testimonial {
+  background: #0e0e0e;
+  padding: 2rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  transition: 0.3s;
 }
-.g-cell {
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-  cursor: none;
-  background: var(--surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.g-cell:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-.g-cell:nth-child(3) { grid-column: span 2; }
-.g-cell-bg {
-  position: absolute;
-  inset: 0;
-  transition: transform 0.8s var(--transition);
-}
-.g-cell:hover .g-cell-bg { transform: scale(1.08); }
-.gb1 { background: radial-gradient(circle at 30% 40%, rgba(255,69,0,0.3), rgba(14,14,14,0.9)), repeating-linear-gradient(45deg, rgba(255,69,0,0.03) 0px, rgba(255,69,0,0.03) 1px, transparent 1px, transparent 10px); }
-.gb2 { background: radial-gradient(circle at 70% 30%, rgba(212,168,67,0.2), rgba(14,14,14,0.9)), repeating-linear-gradient(135deg, rgba(212,168,67,0.03) 0px, rgba(212,168,67,0.03) 1px, transparent 1px, transparent 10px); }
-.gb3 { background: radial-gradient(circle at 50% 50%, rgba(255,69,0,0.15), rgba(14,14,14,0.95)), repeating-linear-gradient(0deg, rgba(255,69,0,0.04) 0px, rgba(255,69,0,0.04) 1px, transparent 1px, transparent 8px); }
-.gb4 { background: radial-gradient(circle at 20% 80%, rgba(255,69,0,0.2), rgba(14,14,14,0.9)); }
-.gb5 { background: radial-gradient(circle at 80% 20%, rgba(212,168,67,0.15), rgba(14,14,14,0.95)); }
-.gb6 { background: radial-gradient(circle at 50% 50%, rgba(255,69,0,0.12), rgba(14,14,14,0.9)); }
-.g-label {
-  position: relative;
-  z-index: 2;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.15em;
-  color: rgba(245,242,237,0.35);
+
+/* ===== CTA ===== */
+.cta-block {
   text-align: center;
-  transition: color 0.4s, transform 0.4s var(--transition);
-}
-.g-cell:hover .g-label { color: rgba(245,242,237,0.7); transform: scale(0.95); }
-.g-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(8,8,8,0.7);
-  display: flex;
-  align-items: flex-end;
-  padding: 1.5rem;
-  opacity: 0;
-  transition: opacity 0.4s;
-  z-index: 3;
-}
-.g-cell:hover .g-overlay { opacity: 1; }
-.g-overlay-text { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-
-/* ======== CTA ======== */
-.cta-section {
-  padding: 10rem 5vw;
-  background: var(--deep);
-  text-align: center;
+  background: linear-gradient(145deg, #0c0c0c, #050505);
+  border-radius: 40px;
+  margin: 0 5vw 5rem;
+  padding: 5rem 2rem;
   position: relative;
   overflow: hidden;
 }
-.cta-glow {
-  position: absolute;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(255,69,0,0.1), transparent 70%);
-  border-radius: 50%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  animation: cta-pulse 4s ease-in-out infinite;
-}
-@keyframes cta-pulse {
-  0%,100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
-  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-}
-.cta-sub {
-  font-size: 0.78rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--fire);
-  margin-bottom: 2rem;
-  position: relative;
-}
-.cta-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3.5rem, 7vw, 8rem);
-  line-height: 0.9;
-  letter-spacing: 0.02em;
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-.cta-desc {
-  font-size: 1rem;
-  color: var(--muted);
-  max-width: 480px;
-  margin: 0 auto 3.5rem;
-  line-height: 1.8;
-  position: relative;
-}
-.cta-actions { display: flex; gap: 1rem; justify-content: center; position: relative; }
 
-/* ======== CONTACT ======== */
-.contact-section { background: var(--black); }
-.contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 6rem; margin-top: 5rem; align-items: start; }
-.contact-details { display: flex; flex-direction: column; gap: 2.5rem; }
-.c-item { display: flex; gap: 1.5rem; align-items: flex-start; }
-.c-ico {
-  width: 50px; height: 50px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  flex-shrink: 0;
-  transition: background 0.3s, border-color 0.3s;
-}
-.c-item:hover .c-ico { background: rgba(255,69,0,0.1); border-color: rgba(255,69,0,0.4); }
-.c-lbl { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
-.c-val { font-size: 0.95rem; line-height: 1.7; color: var(--text); }
-.c-val a { color: var(--fire); text-decoration: none; transition: opacity 0.2s; }
-.c-val a:hover { opacity: 0.7; }
-.map-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  height: 420px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.4s;
-}
-.map-box:hover { border-color: rgba(255,69,0,0.3); }
-.map-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,69,0,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,69,0,0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
-  animation: map-pan 20s linear infinite;
-}
-@keyframes map-pan { from { background-position: 0 0; } to { background-position: 40px 40px; } }
-.map-pin-wrap {
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  z-index: 2;
-}
-.map-pin-icon {
-  width: 18px; height: 22px;
-  background: var(--fire);
-  border-radius: 9px 9px 50% 50%;
-  position: relative;
-  animation: pin-bounce 2.5s ease-in-out infinite;
-  box-shadow: 0 0 0 8px rgba(255,69,0,0.15), 0 0 0 16px rgba(255,69,0,0.07);
-}
-.map-pin-icon::after { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background: var(--fire); border-radius: 50%; }
-@keyframes pin-bounce { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-8px); } }
-.map-label {
-  background: var(--black);
-  border: 1px solid rgba(255,69,0,0.4);
-  padding: 0.5rem 1.2rem;
-  border-radius: 4px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  color: var(--text);
-  white-space: nowrap;
-}
-.map-pulse {
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px; height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,69,0,0.12), transparent 70%);
-  animation: pulse-expand 3s ease-out infinite;
-}
-@keyframes pulse-expand { 0%{ transform: translate(-50%,-50%) scale(0.5); opacity: 1; } 100%{ transform: translate(-50%,-50%) scale(2); opacity: 0; } }
-.map-addr {
-  position: absolute;
-  bottom: 1.25rem; left: 1.25rem;
-  background: rgba(8,8,8,0.9);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.75rem 1.1rem;
-  font-size: 0.78rem;
-  color: var(--muted);
-  z-index: 3;
-}
-.map-addr strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 0.2rem; }
-
-/* ======== FOOTER ======== */
+/* ===== FOOTER ===== */
 footer {
-  background: var(--deep);
-  border-top: 1px solid var(--border);
-  padding: 5rem 5vw 2.5rem;
-}
-.footer-top {
-  display: grid;
-  grid-template-columns: 2.5fr 1fr 1fr 1fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-}
-.f-brand-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem;
-  letter-spacing: 0.06em;
-  margin-bottom: 1rem;
-  color: var(--text);
-}
-.f-brand-name span { color: var(--fire); }
-.f-tagline { font-size: 0.875rem; color: var(--muted); line-height: 1.8; max-width: 280px; }
-.f-socials { display: flex; gap: 0.6rem; margin-top: 2rem; }
-.f-social {
-  width: 38px; height: 38px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--muted);
-  text-decoration: none;
-  transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s var(--transition);
-}
-.f-social:hover { background: var(--fire); border-color: var(--fire); color: #fff; transform: translateY(-3px); }
-.f-col h4 {
-  font-size: 0.65rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 1.5rem;
-}
-.f-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-.f-col ul li a {
-  font-size: 0.875rem;
-  color: rgba(245,242,237,0.55);
-  text-decoration: none;
-  transition: color 0.3s, padding-left 0.3s;
-  display: inline-block;
-}
-.f-col ul li a:hover { color: var(--fire); padding-left: 6px; }
-.footer-bottom {
-  border-top: 1px solid var(--border);
-  padding-top: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.f-copy { font-size: 0.78rem; color: var(--faint); }
-.f-copy span { color: var(--fire); }
-
-/* ======== SCROLL INDICATOR ======== */
-.section-line {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  background: #080808;
+  border-top: 1px solid var(--border-light);
+  padding: 4rem 5vw 2rem;
 }
 
-/* ======== WHY US ======== */
-.why-section { background: var(--surface); padding: 8rem 5vw; }
-.why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; margin-top: 5rem; }
-.why-item { position: relative; }
-.why-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 5rem;
-  line-height: 1;
-  color: rgba(255,69,0,0.08);
-  margin-bottom: -1rem;
-  transition: color 0.4s;
-}
-.why-item:hover .why-num { color: rgba(255,69,0,0.15); }
-.why-icon-wrap {
-  width: 52px; height: 52px;
-  background: rgba(255,69,0,0.08);
-  border: 1px solid rgba(255,69,0,0.2);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  margin-bottom: 1.5rem;
-  transition: background 0.4s, transform 0.4s var(--transition);
-}
-.why-item:hover .why-icon-wrap { background: rgba(255,69,0,0.15); transform: rotate(-8deg) scale(1.05); }
-.why-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem;
-  letter-spacing: 0.04em;
-  margin-bottom: 0.75rem;
-  transition: color 0.3s;
-}
-.why-item:hover .why-title { color: var(--fire); }
-.why-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.8; }
-
-/* ======== MOBILE ======== */
-@media (max-width: 900px) {
-  #cursor, #cursor-ring { display: none; }
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1000px) {
+  .nav-links { display: none; }
+  .services-grid, .pricing-grid, .trainers-grid, .testimonial-grid { grid-template-columns: 1fr; }
+  .stats-row { flex-wrap: wrap; gap: 2rem; }
   body { cursor: auto; }
-  nav { padding: 1rem 4vw; }
-  .nav-center { display: none; }
-  .section { padding: 5rem 4vw; }
-  .hero-content { padding: 0 4vw; padding-top: 7rem; }
-  .services-grid, .pricing-grid, .trainers-grid, .testi-grid { grid-template-columns: 1fr; }
-  .about-inner, .contact-grid { grid-template-columns: 1fr; }
-  .about-visual { display: none; }
-  .why-grid { grid-template-columns: 1fr 1fr; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
-  .gallery-masonry { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
-  .g-cell:nth-child(1), .g-cell:nth-child(3) { grid-column: span 1; grid-row: span 1; }
-  .schedule-layout { grid-template-columns: 1fr; }
-  .day-sidebar { flex-direction: row; flex-wrap: wrap; position: static; }
-  .cta-actions { flex-direction: column; align-items: center; }
+  #cursor-dot, #cursor-ring { display: none; }
+}
+
+@media (max-width: 700px) {
+  .hero-buttons { flex-direction: column; align-items: flex-start; }
+  .section { padding: 4rem 6vw; }
 }
 </style>
 </head>
 <body>
 
-<div id="cursor"></div>
+<div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
-<div id="progress"></div>
+<div id="scroll-progress"></div>
 
-<!-- NAV -->
 <nav id="navbar">
-  <a href="#" class="nav-logo">
-    <div class="dot"></div>
-    Total Fitness Studio
+  <a href="#" class="logo">
+    <div class="logo-dot"></div>
+    TOTAL FITNESS
   </a>
-  <ul class="nav-center">
+  <ul class="nav-links">
     <li><a href="#services">Programs</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#trainers">Trainers</a></li>
-    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#testimonials">Stories</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#cta" class="nav-join">Join Free Trial</a>
+  <a href="#cta" class="cta-nav">Start 7-Day Trial →</a>
 </nav>
 
-<!-- HERO -->
+<!-- HERO SECTION with Canvas -->
 <section class="hero">
-  <div class="hero-bg">
-    <canvas id="particles-canvas"></canvas>
-    <div class="hero-grid-lines"></div>
-    <div class="hero-vignette"></div>
-  </div>
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-gradient"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">
-      <span class="line"></span>
-      Chromepet's Premier Gym · Est. 2010
-    </div>
+    <div class="hero-badge"><span></span> Chromepet's Elite Gym</div>
     <h1 class="hero-title">
-      FORGE<br>
-      YOUR<br>
-      <span class="fire">BEST</span><br>
-      <span class="stroke">BODY.</span>
+      FORGE.<br>
+      YOUR.<br>
+      <span class="flame">BEST</span><br>
+      <span class="stroke">SELF.</span>
     </h1>
-    <p class="hero-tagline">Real training, real results. The most equipped gym in Chromepet with certified expert trainers, cutting-edge equipment, and programs built for every level.</p>
-    <div class="hero-actions">
-      <a href="#pricing" class="btn btn-fire"><span>Start Free Trial</span> <span class="btn-arrow">→</span></a>
-      <a href="#schedule" class="btn btn-outline">View Schedule</a>
+    <p class="hero-desc">The most powerful transformation hub in Chromepet. Commercial equipment, certified pros, and a community that drives results. Real training changes everything.</p>
+    <div class="hero-buttons">
+      <a href="#pricing" class="btn btn-primary">⚡ Start Free Trial</a>
+      <a href="#contact" class="btn btn-outline">Explore Studio →</a>
     </div>
-    <div class="hero-stats-row">
-      <div>
-        <div class="hero-stat-num" data-count="1200">0</div>
-        <div class="hero-stat-label">Active Members</div>
-      </div>
-      <div>
-        <div class="hero-stat-num" data-count="15">0</div>
-        <div class="hero-stat-label">Expert Trainers</div>
-      </div>
-      <div>
-        <div class="hero-stat-num" data-count="14">0</div>
-        <div class="hero-stat-label">Years in Chromepet</div>
-      </div>
-      <div>
-        <div class="hero-stat-num" data-count="98">0</div>
-        <div class="hero-stat-label">% Satisfaction</div>
-      </div>
+    <div class="stats-row">
+      <div><div class="stat-number" data-count="1450">0</div><div class="stat-label">Active Members</div></div>
+      <div><div class="stat-number" data-count="18">0</div><div class="stat-label">Elite Coaches</div></div>
+      <div><div class="stat-number" data-count="15">0</div><div class="stat-label">Years Legacy</div></div>
+      <div><div class="stat-number" data-count="99">0</div><div class="stat-label">Goal Success</div></div>
     </div>
-  </div>
-  <div class="hero-scroll-hint">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span class="marquee-item">Weight Training</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">CrossFit</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">HIIT Classes</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Yoga & Wellness</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Zumba</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Boxing Fitness</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Personal Training</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Nutrition Coaching</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Weight Training</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">CrossFit</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">HIIT Classes</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Yoga & Wellness</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Zumba</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Boxing Fitness</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Personal Training</span><span class="marquee-sep"> ◆ </span>
-    <span class="marquee-item">Nutrition Coaching</span><span class="marquee-sep"> ◆ </span>
+<!-- MARQUEE ANIMATION -->
+<div style="overflow: hidden; background: #0b0b0b; padding: 1rem 0; border-block: 1px solid rgba(255,255,255,0.05);">
+  <div style="display: flex; white-space: nowrap; animation: slide 28s linear infinite; width: max-content;">
+    <span style="font-family: 'Bebas Neue'; margin-right: 3rem; color: var(--text-muted);">⚡ STRONGER EVERY DAY</span>
+    <span style="margin-right: 3rem; color: var(--fire);">◆</span>
+    <span style="margin-right: 3rem;">🔥 CROSSFIT BOX</span>
+    <span style="margin-right: 3rem; color: var(--fire);">◆</span>
+    <span>🏋️ STRENGTH ZONE</span>
+    <span style="margin-right: 3rem; color: var(--fire);">◆</span>
+    <span>🧘 YOGA COLLECTIVE</span>
+    <span style="margin-right: 3rem; color: var(--fire);">◆</span>
+    <span>🥊 BOXING LAB</span>
+    <span style="margin-right: 3rem; color: var(--fire);">◆</span>
+    <span>🥗 NUTRITION AI</span>
+    <span style="margin-right: 3rem; color: var(--fire);">◆</span>
   </div>
 </div>
+<style>@keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }</style>
 
 <!-- SERVICES -->
-<section id="services" class="section services-section">
-  <div class="services-intro">
-    <div class="reveal">
-      <div class="sec-label">What We Offer</div>
-      <h2 class="sec-title">Programs &<br><span class="accent">Services</span></h2>
-    </div>
-    <p class="reveal reveal-delay-2">Every program at Total Fitness Studio is built around <strong>measurable outcomes</strong>. Our certified trainers design structured progressions — not random workouts — so you see real changes in strength, endurance, and body composition.</p>
-  </div>
+<section id="services" class="section">
+  <div class="section-label">What We Build</div>
+  <h2 class="section-title">Elite <span class="accent">Programs</span><br>For Real Humans</h2>
   <div class="services-grid">
-    <div class="service-card reveal reveal-delay-1">
-      <div class="svc-num">01</div>
-      <span class="svc-icon">🏋️</span>
-      <div class="svc-name">Strength & Conditioning</div>
-      <p class="svc-desc">Full free weights floor, squat racks, power cages, and dedicated machine zones. Periodised programming for real strength gains.</p>
-      <span class="svc-tag">Daily 5am–11pm</span>
-    </div>
-    <div class="service-card reveal reveal-delay-2">
-      <div class="svc-num">02</div>
-      <span class="svc-icon">🔥</span>
-      <div class="svc-name">HIIT & CrossFit</div>
-      <p class="svc-desc">High-intensity coached sessions that torch calories and build explosive fitness. 7 days a week, morning to night.</p>
-      <span class="svc-tag">20 classes / week</span>
-    </div>
-    <div class="service-card reveal reveal-delay-3">
-      <div class="svc-num">03</div>
-      <span class="svc-icon">🧘</span>
-      <div class="svc-name">Yoga & Flexibility</div>
-      <p class="svc-desc">Morning Hatha, evening Vinyasa, restorative weekend flows. Certified instructors for all levels — beginner to advanced.</p>
-      <span class="svc-tag">All Levels</span>
-    </div>
-    <div class="service-card reveal reveal-delay-1">
-      <div class="svc-num">04</div>
-      <span class="svc-icon">💃</span>
-      <div class="svc-name">Zumba & Aerobics</div>
-      <p class="svc-desc">High-energy dance fitness that doesn't feel like work. Our most popular and consistently booked classes.</p>
-      <span class="svc-tag">Book Ahead</span>
-    </div>
-    <div class="service-card reveal reveal-delay-2">
-      <div class="svc-num">05</div>
-      <span class="svc-icon">🥊</span>
-      <div class="svc-name">Boxing Fitness</div>
-      <p class="svc-desc">Non-contact boxing drills, bag work, and cardio circuits. Stress relief meets serious conditioning in 60 minutes.</p>
-      <span class="svc-tag">Stress Buster</span>
-    </div>
-    <div class="service-card reveal reveal-delay-3">
-      <div class="svc-num">06</div>
-      <span class="svc-icon">🥗</span>
-      <div class="svc-name">Nutrition Coaching</div>
-      <p class="svc-desc">Personalised meal plans, macro guidance, fortnightly check-ins with our certified sports nutritionist.</p>
-      <span class="svc-tag">Science-Based</span>
-    </div>
+    <div class="service-card"><div class="service-icon">🏋️‍♂️</div><div class="service-title">Strength Lab</div><div class="service-desc">Periodized strength, power racks, Eleiko plates. For athletes and beginners alike.</div></div>
+    <div class="service-card"><div class="service-icon">🔥</div><div class="service-title">HIIT Metcon</div><div class="service-desc">Intense 45-min fat torching & endurance sessions. Max burn, minimal time.</div></div>
+    <div class="service-card"><div class="service-icon">🧘‍♀️</div><div class="service-title">Yoga Flow</div><div class="service-desc">Mobility, breathwork & stress relief. All levels, heated studio available.</div></div>
+    <div class="service-card"><div class="service-icon">🥊</div><div class="service-title">Boxing Fitness</div><div class="service-desc">Non-contact boxing, bag rounds, reflex drills. Scult your upper body.</div></div>
+    <div class="service-card"><div class="service-icon">💃</div><div class="service-title">Zumba Rhythm</div><div class="service-desc">Dance your way to cardio health. High energy & addictive.</div></div>
+    <div class="service-card"><div class="service-icon">🥗</div><div class="service-title">Nutrition OS</div><div class="service-desc">Personalised meal plans and macro coaching by certified nutritionist.</div></div>
   </div>
 </section>
-
-<div class="section-line"></div>
-
-<!-- ABOUT -->
-<section class="section about-section">
-  <div class="about-inner">
-    <div class="about-visual reveal-left">
-      <div class="about-big-num">14</div>
-      <div class="about-card-main">
-        <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;">Member Progress</div>
-        <div class="about-progress">
-          <div class="prog-row">
-            <span class="prog-label">Fat Loss</span>
-            <div class="prog-bar-wrap"><div class="prog-bar" data-width="88"></div></div>
-            <span class="prog-val">88%</span>
-          </div>
-          <div class="prog-row">
-            <span class="prog-label">Muscle Gain</span>
-            <div class="prog-bar-wrap"><div class="prog-bar" data-width="74"></div></div>
-            <span class="prog-val">74%</span>
-          </div>
-          <div class="prog-row">
-            <span class="prog-label">Endurance</span>
-            <div class="prog-bar-wrap"><div class="prog-bar" data-width="92"></div></div>
-            <span class="prog-val">92%</span>
-          </div>
-          <div class="prog-row">
-            <span class="prog-label">Goal Achieved</span>
-            <div class="prog-bar-wrap"><div class="prog-bar" data-width="95"></div></div>
-            <span class="prog-val">95%</span>
-          </div>
-        </div>
-      </div>
-      <div class="about-card-float">
-        <div class="afc-icon">🏆</div>
-        <div>
-          <div class="afc-label">Chromepet's Best Gym</div>
-          <div class="afc-val">5 Years Running</div>
-        </div>
-      </div>
-    </div>
-    <div class="about-text reveal">
-      <div class="sec-label">Our Philosophy</div>
-      <h2 class="sec-title" style="margin-bottom:2rem">Built on<br><span class="accent">Results,</span><br>Not Promises</h2>
-      <p>We've been transforming bodies in Chromepet since 2010. What separates us is simple: <strong>every trainer is nationally certified</strong>, every program is scientifically designed, and every member gets personal attention — not a one-size-fits-all routine.</p>
-      <p>Our facility runs on <strong>commercial-grade equipment</strong> — Life Fitness, Hammer Strength, Technogym — maintained to hotel-gym standards. Because you deserve equipment that works every single time.</p>
-      <p>From first-timers to competitive athletes, <strong>Total Fitness Studio</strong> is the one gym in Chromepet where people actually hit their goals.</p>
-      <div style="margin-top:2.5rem">
-        <a href="#contact" class="btn btn-fire"><span>Visit Us Today</span> <span class="btn-arrow">→</span></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY US -->
-<section class="why-section">
-  <div class="reveal">
-    <div class="sec-label">Why Choose Us</div>
-    <h2 class="sec-title">The Total Fitness<br><span class="accent">Difference</span></h2>
-  </div>
-  <div class="why-grid">
-    <div class="why-item reveal reveal-delay-1">
-      <div class="why-num">01</div>
-      <div class="why-icon-wrap">🏅</div>
-      <div class="why-title">Certified Trainers Only</div>
-      <p class="why-desc">Every coach holds national certification. No amateurs. Professionals who deliver measurable, trackable outcomes.</p>
-    </div>
-    <div class="why-item reveal reveal-delay-2">
-      <div class="why-num">02</div>
-      <div class="why-icon-wrap">⚙️</div>
-      <div class="why-title">Premium Equipment</div>
-      <p class="why-desc">Life Fitness, Hammer Strength, Technogym. Commercial-grade machines maintained to premium standards, always.</p>
-    </div>
-    <div class="why-item reveal reveal-delay-3">
-      <div class="why-num">03</div>
-      <div class="why-icon-wrap">⏰</div>
-      <div class="why-title">Open 5am–11pm</div>
-      <p class="why-desc">Longest hours in Chromepet. Early mornings, late nights — we're open when you need us, every day of the week.</p>
-    </div>
-    <div class="why-item reveal reveal-delay-4">
-      <div class="why-num">04</div>
-      <div class="why-icon-wrap">📍</div>
-      <div class="why-title">Prime Chromepet Location</div>
-      <p class="why-desc">3 minutes from Chromepet station. Ample parking. Easy access from GST Road, Tambaram, and Pallavaram.</p>
-    </div>
-  </div>
-</section>
-
-<div class="section-line"></div>
 
 <!-- PRICING -->
-<section id="pricing" class="section pricing-section">
-  <div class="reveal">
-    <div class="sec-label">Membership Plans</div>
-    <h2 class="sec-title">Simple,<br><span class="accent">Transparent</span> Pricing</h2>
-  </div>
-  <div class="pricing-toggle reveal">
-    <span class="toggle-label">Monthly</span>
-    <div class="toggle-switch" id="toggle" onclick="togglePricing()">
-      <div class="toggle-knob"></div>
-    </div>
-    <span class="toggle-label">Annual</span>
-    <span class="save-badge">Save 25%</span>
-  </div>
+<section id="pricing" class="section" style="background: var(--deep);">
+  <div class="section-label">Membership Plans</div>
+  <h2 class="section-title">Simple,<span class="accent"> Transparent</span><br>Value</h2>
   <div class="pricing-grid">
-    <div class="price-card reveal reveal-delay-1">
-      <div class="p-plan">Basic</div>
-      <div class="p-amount">
-        <span class="p-sym">₹</span>
-        <span class="p-num" id="p1">999</span>
-      </div>
-      <div class="p-period">per month</div>
-      <div class="p-divider"></div>
-      <ul class="p-features">
-        <li class="yes">Gym floor access</li>
-        <li class="yes">Cardio equipment</li>
-        <li class="yes">Locker room</li>
-        <li class="no">Group classes</li>
-        <li class="no">Personal training sessions</li>
-        <li class="no">Nutrition consultation</li>
-      </ul>
-      <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Get Started</a>
-    </div>
-    <div class="price-card featured reveal reveal-delay-2">
-      <span class="featured-pip">Most Popular</span>
-      <div class="p-plan">Pro</div>
-      <div class="p-amount">
-        <span class="p-sym">₹</span>
-        <span class="p-num" id="p2">1,799</span>
-      </div>
-      <div class="p-period">per month</div>
-      <div class="p-divider"></div>
-      <ul class="p-features">
-        <li class="yes">Full gym access</li>
-        <li class="yes">All group classes</li>
-        <li class="yes">Locker room + towel service</li>
-        <li class="yes">2 PT sessions / month</li>
-        <li class="yes">Fitness assessment</li>
-        <li class="no">Nutrition consultation</li>
-      </ul>
-      <a href="#contact" class="btn btn-fire" style="width:100%;justify-content:center"><span>Get Started</span></a>
-    </div>
-    <div class="price-card reveal reveal-delay-3">
-      <div class="p-plan">Elite</div>
-      <div class="p-amount">
-        <span class="p-sym">₹</span>
-        <span class="p-num" id="p3">2,999</span>
-      </div>
-      <div class="p-period">per month</div>
-      <div class="p-divider"></div>
-      <ul class="p-features">
-        <li class="yes">Unlimited everything</li>
-        <li class="yes">All group classes</li>
-        <li class="yes">8 PT sessions / month</li>
-        <li class="yes">Monthly nutrition plan</li>
-        <li class="yes">Body composition tracking</li>
-        <li class="yes">Priority class booking</li>
-      </ul>
-      <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Get Started</a>
-    </div>
+    <div class="price-card"><h3 style="font-size:1.2rem;">Basic</h3><div style="font-size:3rem; margin:1rem 0;"><span style="font-size:1.2rem;">₹</span>999</div><div>per month</div><ul style="margin:1.5rem 0; list-style:none;"><li>✓ Full gym access</li><li>✓ Cardio machines</li><li>✕ Group classes</li></ul><a href="#contact" class="btn btn-outline" style="width:100%; justify-content:center;">Join Basic</a></div>
+    <div class="price-card featured"><span style="background:var(--fire); padding:0.2rem 0.8rem; border-radius:30px; font-size:0.7rem;">🔥 Most Popular</span><h3 style="font-size:1.2rem; margin-top:1rem;">Pro</h3><div style="font-size:3rem;"><span style="font-size:1.2rem;">₹</span>1,799</div><div>per month</div><ul style="margin:1.5rem 0; list-style:none;"><li>✓ Unlimited classes</li><li>✓ 2 PT sessions/month</li><li>✓ Towel service</li></ul><a href="#contact" class="btn btn-primary" style="width:100%; justify-content:center;">Claim Offer</a></div>
+    <div class="price-card"><h3 style="font-size:1.2rem;">Elite</h3><div style="font-size:3rem;"><span style="font-size:1.2rem;">₹</span>2,999</div><div>per month</div><ul style="margin:1.5rem 0; list-style:none;"><li>✓ Unlimited PT</li><li>✓ Nutrition plan</li><li>✓ Recovery access</li></ul><a href="#contact" class="btn btn-outline" style="width:100%; justify-content:center;">Go Elite</a></div>
   </div>
-  <p style="text-align:center;margin-top:2.5rem;font-size:0.8rem;color:var(--muted)">Annual memberships available — save up to 25%. Student & senior discounts available. <span style="color:var(--fire)">7-day free trial</span> for all new members, no card required.</p>
 </section>
-
-<div class="section-line"></div>
 
 <!-- TRAINERS -->
-<section id="trainers" class="section trainers-section">
-  <div class="reveal">
-    <div class="sec-label">The Team</div>
-    <h2 class="sec-title">Meet Your<br><span class="accent">Expert</span> Trainers</h2>
-  </div>
+<section id="trainers" class="section">
+  <div class="section-label">Masters of Motion</div>
+  <h2 class="section-title">Meet Your <span class="accent">Elite</span> Coaches</h2>
   <div class="trainers-grid">
-    <div class="trainer-card reveal reveal-delay-1">
-      <div class="trainer-visual">
-        <div class="trainer-initials">RK</div>
-        <div class="trainer-overlay"></div>
-        <div class="trainer-spec">Head Trainer</div>
-        <div class="trainer-socials">
-          <a href="#" class="t-social">in</a>
-          <a href="#" class="t-social">ig</a>
-        </div>
-      </div>
-      <div class="trainer-info">
-        <div class="trainer-name">Rajan Kumar</div>
-        <div class="trainer-role">Strength & Conditioning</div>
-        <div class="trainer-exp"><div class="exp-dot"></div> 12 Years Experience</div>
-      </div>
-    </div>
-    <div class="trainer-card reveal reveal-delay-2">
-      <div class="trainer-visual">
-        <div class="trainer-initials">PR</div>
-        <div class="trainer-overlay"></div>
-        <div class="trainer-spec">Certified</div>
-        <div class="trainer-socials">
-          <a href="#" class="t-social">in</a>
-          <a href="#" class="t-social">ig</a>
-        </div>
-      </div>
-      <div class="trainer-info">
-        <div class="trainer-name">Priya Raj</div>
-        <div class="trainer-role">Yoga & Wellness</div>
-        <div class="trainer-exp"><div class="exp-dot"></div> 9 Years Experience</div>
-      </div>
-    </div>
-    <div class="trainer-card reveal reveal-delay-3">
-      <div class="trainer-visual">
-        <div class="trainer-initials">AK</div>
-        <div class="trainer-overlay"></div>
-        <div class="trainer-spec">CrossFit L2</div>
-        <div class="trainer-socials">
-          <a href="#" class="t-social">in</a>
-          <a href="#" class="t-social">ig</a>
-        </div>
-      </div>
-      <div class="trainer-info">
-        <div class="trainer-name">Arjun Krishnan</div>
-        <div class="trainer-role">CrossFit & HIIT</div>
-        <div class="trainer-exp"><div class="exp-dot"></div> 10 Years Experience</div>
-      </div>
-    </div>
-    <div class="trainer-card reveal reveal-delay-4">
-      <div class="trainer-visual">
-        <div class="trainer-initials">SM</div>
-        <div class="trainer-overlay"></div>
-        <div class="trainer-spec">Nutritionist</div>
-        <div class="trainer-socials">
-          <a href="#" class="t-social">in</a>
-          <a href="#" class="t-social">ig</a>
-        </div>
-      </div>
-      <div class="trainer-info">
-        <div class="trainer-name">Sunita Menon</div>
-        <div class="trainer-role">Sports Nutrition</div>
-        <div class="trainer-exp"><div class="exp-dot"></div> 8 Years Experience</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-line"></div>
-
-<!-- SCHEDULE -->
-<section id="schedule" class="section schedule-section">
-  <div class="reveal">
-    <div class="sec-label">Class Timetable</div>
-    <h2 class="sec-title">Today's<br><span class="accent">Schedule</span></h2>
-  </div>
-  <div class="schedule-layout">
-    <div class="day-sidebar reveal">
-      <button class="day-btn active" onclick="setDay(this,'Mon')">Mon <span class="day-sub">Today</span></button>
-      <button class="day-btn" onclick="setDay(this,'Tue')">Tue</button>
-      <button class="day-btn" onclick="setDay(this,'Wed')">Wed</button>
-      <button class="day-btn" onclick="setDay(this,'Thu')">Thu</button>
-      <button class="day-btn" onclick="setDay(this,'Fri')">Fri</button>
-      <button class="day-btn" onclick="setDay(this,'Sat')">Sat</button>
-      <button class="day-btn" onclick="setDay(this,'Sun')">Sun</button>
-    </div>
-    <div class="class-rows reveal reveal-delay-2" id="class-rows">
-      <div class="class-row"><div class="c-time">5:30 AM<div class="c-dur">60 min</div></div><div><div class="c-name">Morning HIIT Blast</div><div class="c-trainer">with Arjun Krishnan</div></div><div class="c-spots"><strong>18/20</strong>spots</div><span class="c-badge filling">Filling Fast</span></div>
-      <div class="class-row"><div class="c-time">7:00 AM<div class="c-dur">45 min</div></div><div><div class="c-name">Hatha Yoga</div><div class="c-trainer">with Priya Raj</div></div><div class="c-spots"><strong>10/15</strong>spots</div><span class="c-badge open">Open</span></div>
-      <div class="class-row"><div class="c-time">9:00 AM<div class="c-dur">60 min</div></div><div><div class="c-name">Strength Circuit</div><div class="c-trainer">with Rajan Kumar</div></div><div class="c-spots"><strong>12/12</strong>spots</div><span class="c-badge full">Full</span></div>
-      <div class="class-row"><div class="c-time">12:00 PM<div class="c-dur">45 min</div></div><div><div class="c-name">Zumba Express</div><div class="c-trainer">with Priya Raj</div></div><div class="c-spots"><strong>8/25</strong>spots</div><span class="c-badge open">Open</span></div>
-      <div class="class-row"><div class="c-time">5:30 PM<div class="c-dur">60 min</div></div><div><div class="c-name">CrossFit WOD</div><div class="c-trainer">with Arjun Krishnan</div></div><div class="c-spots"><strong>19/20</strong>spots</div><span class="c-badge filling">Filling Fast</span></div>
-      <div class="class-row"><div class="c-time">7:00 PM<div class="c-dur">60 min</div></div><div><div class="c-name">Boxing Fitness</div><div class="c-trainer">with Rajan Kumar</div></div><div class="c-spots"><strong>6/15</strong>spots</div><span class="c-badge open">Open</span></div>
-      <div class="class-row"><div class="c-time">8:30 PM<div class="c-dur">45 min</div></div><div><div class="c-name">Evening Vinyasa</div><div class="c-trainer">with Priya Raj</div></div><div class="c-spots"><strong>11/15</strong>spots</div><span class="c-badge open">Open</span></div>
-    </div>
+    <div class="trainer-card"><div class="trainer-media"><div class="trainer-initials">RK</div></div><div style="padding:1.5rem;"><h3>Rajan Kumar</h3><p style="color:var(--text-muted);">Head Strength Coach</p><span style="color:var(--fire);">12+ yrs exp</span></div></div>
+    <div class="trainer-card"><div class="trainer-media"><div class="trainer-initials">PM</div></div><div style="padding:1.5rem;"><h3>Priya Mehta</h3><p style="color:var(--text-muted);">Yoga & Mobility</p><span style="color:var(--fire);">9 yrs · RYT 500</span></div></div>
+    <div class="trainer-card"><div class="trainer-media"><div class="trainer-initials">AK</div></div><div style="padding:1.5rem;"><h3>Arjun K</h3><p style="color:var(--text-muted);">CrossFit L3 Coach</p><span style="color:var(--fire);">10+ national comps</span></div></div>
+    <div class="trainer-card"><div class="trainer-media"><div class="trainer-initials">SN</div></div><div style="padding:1.5rem;"><h3>Sunita Nair</h3><p style="color:var(--text-muted);">Sports Nutritionist</p><span style="color:var(--fire);">MSc Nutrition</span></div></div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="section testi-section">
-  <div class="reveal">
-    <div class="sec-label">Member Stories</div>
-    <h2 class="sec-title">Real People,<br><span class="accent">Real Results</span></h2>
-  </div>
-  <div class="testi-grid">
-    <div class="testi-card reveal reveal-delay-1">
-      <div class="t-stars">
-        <div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div>
-      </div>
-      <p class="t-text">"Lost 14 kg in 4 months. The trainers actually care about your progress, not just selling supplements. Rajan's programming is scientific and it absolutely works."</p>
-      <div class="t-author">
-        <div class="t-avatar">VK</div>
-        <div>
-          <div class="t-name">Vijay Kumar</div>
-          <div class="t-meta">Member since 2022 · Weight Loss</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card reveal reveal-delay-2">
-      <div class="t-stars">
-        <div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div>
-      </div>
-      <p class="t-text">"Tried 3 gyms in Chromepet before finding this place. Equipment is always clean, AC works, and the Zumba classes with Priya are honestly addictive."</p>
-      <div class="t-author">
-        <div class="t-avatar">DM</div>
-        <div>
-          <div class="t-name">Divya Menon</div>
-          <div class="t-meta">Member since 2023 · Zumba & Yoga</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card reveal reveal-delay-3">
-      <div class="t-stars">
-        <div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div>
-      </div>
-      <p class="t-text">"Went from 68 to 80 kg of lean muscle in 8 months. Sunita's nutrition plan + the strength program is a complete package you won't find anywhere else in this area."</p>
-      <div class="t-author">
-        <div class="t-avatar">KS</div>
-        <div>
-          <div class="t-name">Karthik S</div>
-          <div class="t-meta">Member since 2021 · Muscle Gain</div>
-        </div>
-      </div>
-    </div>
+<section id="testimonials" class="section" style="background: #0a0a0a;">
+  <div class="section-label">Member Transformations</div>
+  <h2 class="section-title">What <span class="accent">Progress</span> Sounds Like</h2>
+  <div class="testimonial-grid" style="margin-top: 3rem;">
+    <div class="testimonial"><span style="color:var(--gold);">★★★★★</span><p style="margin: 1rem 0;">"Lost 17 kg in 5 months. The trainers don't just count reps – they build discipline. Best decision in Chromepet."</p><strong>— Vikram S.</strong></div>
+    <div class="testimonial"><span style="color:var(--gold);">★★★★★</span><p style="margin: 1rem 0;">"Premium equipment, never crowded, and the HIIT classes are world-class. My stamina doubled in 3 months."</p><strong>— Divya R.</strong></div>
+    <div class="testimonial"><span style="color:var(--gold);">★★★★★</span><p style="margin: 1rem 0;">"Finally a gym where they care about form & recovery. Sunita's nutrition plan changed my relationship with food."</p><strong>— Karthik M.</strong></div>
   </div>
 </section>
 
-<!-- GALLERY -->
-<div class="gallery-section">
-  <div class="gallery-header reveal">
-    <div class="sec-label">Inside the Studio</div>
-    <h2 class="sec-title">Our <span class="accent">Facility</span></h2>
-  </div>
-  <div class="gallery-masonry reveal">
-    <div class="g-cell"><div class="g-cell-bg gb1"></div><span class="g-label">Free Weights Zone</span><div class="g-overlay"><div class="g-overlay-text">Main Gym Floor · 6,000 sq ft</div></div></div>
-    <div class="g-cell"><div class="g-cell-bg gb2"></div><span class="g-label">Cardio Deck</span><div class="g-overlay"><div class="g-overlay-text">40+ Premium Machines</div></div></div>
-    <div class="g-cell"><div class="g-cell-bg gb3"></div><span class="g-label">CrossFit Box</span><div class="g-overlay"><div class="g-overlay-text">Functional Training Zone</div></div></div>
-    <div class="g-cell"><div class="g-cell-bg gb4"></div><span class="g-label">Yoga Studio</span><div class="g-overlay"><div class="g-overlay-text">Dedicated Yoga Hall</div></div></div>
-    <div class="g-cell"><div class="g-cell-bg gb5"></div><span class="g-label">Boxing Area</span><div class="g-overlay"><div class="g-overlay-text">Heavy Bag Zone</div></div></div>
-    <div class="g-cell"><div class="g-cell-bg gb6"></div><span class="g-label">Recovery Zone</span><div class="g-overlay"><div class="g-overlay-text">Stretch & Mobility</div></div></div>
-  </div>
-  <p style="text-align:center;font-size:0.75rem;color:var(--faint);margin-top:1.5rem;padding:0 5vw">Replace placeholder cells with real gym photography for maximum impact.</p>
-</div>
-
-<!-- CTA -->
-<section id="cta" class="cta-section">
-  <div class="cta-glow"></div>
-  <div class="cta-sub reveal">No contracts. No credit card. Just show up.</div>
-  <h2 class="cta-title reveal">Your 7-Day<br><span style="color:var(--fire)">Free Trial</span><br>Starts Today</h2>
-  <p class="cta-desc reveal">Walk in any day. Tell us you're here for the trial. We'll pair you with a trainer and show you what Total Fitness Studio can do for you.</p>
-  <div class="cta-actions reveal">
-    <a href="#contact" class="btn btn-fire"><span>Claim Free Trial</span> <span class="btn-arrow">→</span></a>
-    <a href="tel:+919876543210" class="btn btn-outline">Call Us Now</a>
+<!-- CTA BLOCK -->
+<section id="cta" class="cta-block">
+  <div style="position: relative; z-index: 2;">
+    <div style="font-size:0.7rem; letter-spacing: 0.2rem; color:var(--fire);">7 Days. Zero Risk. Massive Results.</div>
+    <h2 style="font-family:'Bebas Neue'; font-size: clamp(3rem,7vw,6rem); margin:1rem 0;">Claim Your <span style="color:var(--fire);">Free Week</span></h2>
+    <p style="max-width: 500px; margin: 0 auto 2rem; color: var(--text-muted);">Walk in, train with our pros, experience the Total Fitness difference. No strings, just sweat equity.</p>
+    <a href="#contact" class="btn btn-primary" style="background: white; color:black;">Start Free Trial →</a>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="section contact-section">
-  <div class="reveal">
-    <div class="sec-label">Find Us</div>
-    <h2 class="sec-title">Get in<br><span class="accent">Touch</span></h2>
-  </div>
-  <div class="contact-grid">
-    <div class="contact-details reveal">
-      <div class="c-item">
-        <div class="c-ico">📍</div>
-        <div>
-          <div class="c-lbl">Address</div>
-          <div class="c-val">Total Fitness Studio<br>Near Chromepet Railway Station<br>Chromepet, Chennai – 600 044<br>Tamil Nadu, India</div>
-        </div>
-      </div>
-      <div class="c-item">
-        <div class="c-ico">📞</div>
-        <div>
-          <div class="c-lbl">Phone / WhatsApp</div>
-          <div class="c-val"><a href="tel:+919876543210">+91 98765 43210</a></div>
-        </div>
-      </div>
-      <div class="c-item">
-        <div class="c-ico">✉️</div>
-        <div>
-          <div class="c-lbl">Email</div>
-          <div class="c-val"><a href="mailto:hello@totalfitnesschromepet.in">hello@totalfitnesschromepet.in</a></div>
-        </div>
-      </div>
-      <div class="c-item">
-        <div class="c-ico">⏰</div>
-        <div>
-          <div class="c-lbl">Hours</div>
-          <div class="c-val">Mon–Fri: 5:00 AM – 11:00 PM<br>Sat–Sun: 6:00 AM – 10:00 PM</div>
-        </div>
-      </div>
-    </div>
-    <div class="map-box reveal reveal-delay-2">
-      <div class="map-grid"></div>
-      <div class="map-pulse"></div>
-      <div class="map-pin-wrap">
-        <div class="map-pin-icon"></div>
-        <div class="map-label">Total Fitness Studio</div>
-      </div>
-      <div class="map-addr">
-        <strong>Chromepet, Chennai</strong>
-        3 min walk from Chromepet Station
-      </div>
-    </div>
+<!-- CONTACT & MAP -->
+<section id="contact" class="section" style="padding-bottom: 4rem;">
+  <div class="section-label">Visit The Forge</div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+    <div><h2 class="section-title">Get in <span class="accent">Touch</span></h2><div style="margin-top: 2rem;"><div style="margin-bottom: 1.5rem;">📍 Chromepet Station Road, Chennai - 600044</div><div>📞 <a href="tel:+919876543210" style="color:var(--fire);">+91 98765 43210</a></div><div>✉️ hello@totalfitness.in</div><div>⏰ 5:00 AM – 11:00 PM (All days)</div></div></div>
+    <div style="background: #111; border-radius: 20px; height: 320px; position: relative; overflow:hidden; border:1px solid var(--border-light);"><div style="position:absolute; inset:0; background: radial-gradient(circle at 50% 50%, rgba(255,69,0,0.15), transparent);"></div><div style="position:absolute; bottom:20px; left:20px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); padding: 0.8rem 1.2rem; border-radius: 12px;"><strong>Total Fitness Studio</strong><br>Near Chromepet Railway Stn</div></div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-top">
-    <div>
-      <div class="f-brand-name">Total <span>Fitness</span> Studio</div>
-      <p class="f-tagline">Chromepet's premier fitness destination since 2010. Transforming bodies and lives, one rep at a time.</p>
-      <div class="f-socials">
-        <a href="#" class="f-social">in</a>
-        <a href="#" class="f-social">fb</a>
-        <a href="#" class="f-social">ig</a>
-        <a href="#" class="f-social">yt</a>
-      </div>
-    </div>
-    <div class="f-col">
-      <h4>Programs</h4>
-      <ul>
-        <li><a href="#">Strength Training</a></li>
-        <li><a href="#">HIIT & CrossFit</a></li>
-        <li><a href="#">Yoga</a></li>
-        <li><a href="#">Zumba</a></li>
-        <li><a href="#">Boxing Fitness</a></li>
-      </ul>
-    </div>
-    <div class="f-col">
-      <h4>Membership</h4>
-      <ul>
-        <li><a href="#">Basic Plan</a></li>
-        <li><a href="#">Pro Plan</a></li>
-        <li><a href="#">Elite Plan</a></li>
-        <li><a href="#">Free Trial</a></li>
-        <li><a href="#">Corporate Plans</a></li>
-      </ul>
-    </div>
-    <div class="f-col">
-      <h4>Info</h4>
-      <ul>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Our Trainers</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">FAQs</a></li>
-      </ul>
-    </div>
+  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 3rem;">
+    <div><h3 style="font-family: 'Bebas Neue';">TOTAL <span style="color:var(--fire);">FITNESS</span></h3><p style="color: var(--text-muted); max-width: 260px;">Chromepet's most awarded gym. Train with purpose.</p></div>
+    <div><h4>Programs</h4><p>Strength | HIIT | Yoga | Boxing | Zumba</p></div>
+    <div><h4>Connect</h4><p>Instagram · Facebook · Twitter</p></div>
   </div>
-  <div class="footer-bottom">
-    <div class="f-copy">© 2024 Total Fitness Studio, Chromepet. Made with <span>♥</span> in Chennai.</div>
-    <div class="f-copy">All rights reserved.</div>
-  </div>
+  <div style="border-top: 1px solid var(--border-light); margin-top: 3rem; padding-top: 2rem; text-align: center; font-size: 0.7rem; color: var(--text-faint);">© 2025 Total Fitness Studio — Chromepet. Unleash your potential.</div>
 </footer>
 
 <script>
-// CURSOR
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
-function animRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animRing); }
-animRing();
-
-// MOUSE RADIAL ON CARDS
-document.querySelectorAll('.service-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width * 100).toFixed(1);
-    const y = ((e.clientY - r.top) / r.height * 100).toFixed(1);
-    card.style.setProperty('--mx', x + '%');
-    card.style.setProperty('--my', y + '%');
+  // Dynamic Cursor
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    dot.style.left = mouseX + 'px';
+    dot.style.top = mouseY + 'px';
   });
-});
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
 
-// SCROLL PROGRESS
-window.addEventListener('scroll', () => {
-  const p = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-  document.getElementById('progress').style.width = p + '%';
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-});
-
-// REVEAL OBSERVER
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('up'); obs.unobserve(e.target); } });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal, .reveal-left').forEach(el => obs.observe(el));
-
-// COUNT UP
-const countObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    const target = parseInt(el.dataset.count);
-    const suffix = target === 98 ? '%' : target === 14 ? 'yr' : '+';
-    let current = 0;
-    const step = Math.ceil(target / 60);
-    const timer = setInterval(() => {
-      current = Math.min(current + step, target);
-      el.textContent = current.toLocaleString() + suffix;
-      if (current >= target) clearInterval(timer);
-    }, 25);
-    countObs.unobserve(el);
+  // Scroll Progress
+  window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('scroll-progress').style.width = scrolled + '%';
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 50) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
   });
-}, { threshold: 0.5 });
-document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
 
-// PROGRESS BARS
-const barObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    e.target.querySelectorAll('.prog-bar').forEach((b, i) => {
-      setTimeout(() => { b.style.width = b.dataset.width + '%'; }, i * 150);
+  // Count-up animation
+  const counters = document.querySelectorAll('[data-count]');
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.count);
+        let current = 0;
+        const suffix = (target === 1450 || target === 18 || target === 15) ? '+' : '%';
+        const increment = Math.ceil(target / 50);
+        const timer = setInterval(() => {
+          current = Math.min(current + increment, target);
+          el.innerText = current + suffix;
+          if (current >= target) clearInterval(timer);
+        }, 25);
+        countObserver.unobserve(el);
+      }
     });
-    barObs.unobserve(e.target);
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('.about-progress').forEach(el => barObs.observe(el));
+  }, { threshold: 0.6 });
+  counters.forEach(c => countObserver.observe(c));
 
-// PARTICLES
-const canvas = document.getElementById('particles-canvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-for (let i = 0; i < 55; i++) {
-  particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.5 + 0.3, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, o: Math.random() * 0.4 + 0.1, fire: Math.random() > 0.7 });
-}
-function drawParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = p.fire ? `rgba(255,69,0,${p.o})` : `rgba(245,242,237,${p.o * 0.5})`;
-    ctx.fill();
-    p.x += p.vx; p.y += p.vy;
-    if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
-    if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
-  });
-  requestAnimationFrame(drawParticles);
-}
-drawParticles();
-
-// PRICING TOGGLE
-let annual = false;
-const prices = [[999, 1799, 2999], [749, 1349, 2249]];
-function togglePricing() {
-  annual = !annual;
-  document.getElementById('toggle').classList.toggle('on', annual);
-  ['p1','p2','p3'].forEach((id, i) => {
-    document.getElementById(id).textContent = prices[annual ? 1 : 0][i].toLocaleString();
-  });
-}
-
-// SCHEDULE DAY
-function setDay(btn, day) {
-  document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const rows = document.getElementById('class-rows');
-  rows.style.opacity = '0';
-  rows.style.transform = 'translateY(10px)';
-  setTimeout(() => { rows.style.transition = 'opacity 0.4s, transform 0.4s'; rows.style.opacity = '1'; rows.style.transform = 'translateY(0)'; }, 200);
-}
-
-// PARALLAX HERO TITLE
-window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  const hero = document.querySelector('.hero-content');
-  if (hero) hero.style.transform = `translateY(${y * 0.28}px)`;
-});
-
-// SMOOTH HOVER - TRAINER CARDS TILT
-document.querySelectorAll('.trainer-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    card.style.transform = `translateY(-12px) perspective(600px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-    card.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s';
-  });
-});
-</script>
-</body>
-</html>
+  // Canvas Particle System (Fiery + Smooth)
+  const cvs = document.getElementById('hero-canvas');
+  let ctx2 = cvs.getContext('2d');
+  let width = window.innerWidth, height = window.innerHeight;
+  let particlesArr = [];
+  function resizeCanvas() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    cvs.width = width;
+    cvs.height = height;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  for (let i = 0; i < 110; i++) {
+    particlesArr.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 2 + 0.5,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.15,
+      alpha: Math.random() * 0.4 + 0.2,
+      fire: Math.random() > 0.65
+    });
+  }
+  function drawP
